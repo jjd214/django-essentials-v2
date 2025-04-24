@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Popular Notes</title>
+</head>
+<body>
+    <h1>Popular notes</h1>
+    {% for note in popular_notes %}
+    <ul>
+        <li>{{ note.title }}</li>
+        <li>{{ note.text }}</li>
+        <li>{{ note.created_at }}</li>
+        <li>Total likes {{ note.likes }}</li>
+    </ul>
+    {% endfor %}
+</body>
+</html>
