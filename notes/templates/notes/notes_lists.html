@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Notes</title>
-</head>
-<body>
-    <h1>My Notes</h1>
-    {% for note in notes %}
-    <ul>
-        <li>{{ note.title }}</li>
-        <li>{{ note.text }}</li>
-        <li>{{ note.likes }}</li>
-        <li>{{ note.created_at }}</li>
-    </ul>
-    {% endfor %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>My Notes</h1>
+{% for note in notes %}
+<ul>
+    <li class="note-li">{{ note.title }}</li>
+    <li class="note-li">{{ note.text }}</li>
+    <li class="note-li">{{ note.likes }}</li>
+    <li class="note-li">{{ note.created_at }}</li>
+</ul>
+{% endfor %}
+
+{% endblock %}
