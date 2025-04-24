@@ -4,4 +4,8 @@
 {% block content %}
     <h1>Some Text</h1>
     <h2>Date today is {{ date }}</h2>
+
+    <div class="container">
+        <a class="btn btn-outline-primary" href="{% url 'notes.list' %}">Smart notes</a>
+    </div>
 {% endblock %}
