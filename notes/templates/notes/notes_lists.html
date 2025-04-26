@@ -5,7 +5,9 @@
 {% block content %}
 
 <h1 class="my-5">My Notes</h1>
-
+<div class="container mb-5">
+    <a href="{% url 'notes.create' %}" class="btn btn-success">Add new note</a>
+</div>
 <div class="row row-cols3 g-2">
     {% for note in notes %}
     <div class="col" >
@@ -13,6 +15,7 @@
             <a href="{% url 'notes.details' pk=note.id %}"><h3>{{ note.title }}</h3></a>
             {{ note.text|truncatechars:20 }}
             <h3>Likes {{ note.likes }}</h3>
+            <a href="{% url 'notes.update' pk=note.id %}">Edit</a>
         </div>
     </div>
     {% endfor %}

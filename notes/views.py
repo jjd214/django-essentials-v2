@@ -3,12 +3,19 @@ from .models import Notes
 from django.http import Http404
 # TemplateView and ListView, DetailView is different
 # ListView already make the query
-from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
+
 from .forms import NotesForm
 
 class NotesCreateView(CreateView):
     model = Notes
     # fields = ['title', 'text']
+    form_class = NotesForm
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_form.html'
+
+class NotesUpdateView(UpdateView):
+    model = Notes
     form_class = NotesForm
     success_url = '/smart/notes'
     template_name = 'notes/notes_form.html'
