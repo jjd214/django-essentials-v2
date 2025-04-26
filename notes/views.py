@@ -6,6 +6,9 @@ from django.http import Http404
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
 from django.views.generic.edit import DeleteView
+from django.http import HttpResponseNotAllowed
+from django.urls import reverse_lazy
+
 
 from .forms import NotesForm
 
@@ -22,10 +25,18 @@ class NotesUpdateView(UpdateView):
     success_url = '/smart/notes'
     template_name = 'notes/notes_form.html'
 
+# class NotesDeleteView(DeleteView):
+#     model = Notes
+#     success_url = '/smart/notes'
+#     template_name = 'notes/notes_delete.html'
+
 class NotesDeleteView(DeleteView):
     model = Notes
-    success_url = '/smart/notes'
-    template_name = 'notes/notes_delete.html'
+    success_url = reverse_lazy('notes.list')  # use reverse_lazy for CBVs
+
+    def get(self, request, *args, **kwargs):
+        # Block GET request for delete view
+        return HttpResponseNotAllowed(['POST'])
 
 class ListView(ListView):
     model = Notes

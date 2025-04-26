@@ -10,13 +10,41 @@
 </div>
 <div class="row row-cols3 g-2">
     {% for note in notes %}
-    <div class="col" >
+    <div class="col">
         <div class="p-3 border">
-            <a href="{% url 'notes.details' pk=note.id %}"><h3>{{ note.title }}</h3></a>
+            <a href="{% url 'notes.details' pk=note.id %}">
+                <h3>{{ note.title }}</h3>
+            </a>
             {{ note.text|truncatechars:20 }}
             <h3>Likes {{ note.likes }}</h3>
             <a href="{% url 'notes.update' pk=note.id %}">Edit</a>
-            <a href="{% url 'notes.delete' pk=note.id %}" class="text-danger">Delete</a>
+            <!-- Inside your for loop -->
+            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ note.id }}">Delete</a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal{{ note.id }}" tabindex="-1"
+                aria-labelledby="deleteModalLabel{{ note.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form method="POST" action="{% url 'notes.delete' pk=note.id %}">
+                            {% csrf_token %}
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel{{ note.id }}">Confirm Delete</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>{{ note.title }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     {% endfor %}
