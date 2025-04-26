@@ -5,6 +5,8 @@ from django.http import Http404
 # ListView already make the query
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
+from django.views.generic.edit import DeleteView
+
 from .forms import NotesForm
 
 class NotesCreateView(CreateView):
@@ -19,6 +21,11 @@ class NotesUpdateView(UpdateView):
     form_class = NotesForm
     success_url = '/smart/notes'
     template_name = 'notes/notes_form.html'
+
+class NotesDeleteView(DeleteView):
+    model = Notes
+    success_url = '/smart/notes'
+    template_name = 'notes/notes_delete.html'
 
 class ListView(ListView):
     model = Notes

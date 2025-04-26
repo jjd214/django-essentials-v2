@@ -16,6 +16,7 @@
             {{ note.text|truncatechars:20 }}
             <h3>Likes {{ note.likes }}</h3>
             <a href="{% url 'notes.update' pk=note.id %}">Edit</a>
+            <a href="{% url 'notes.delete' pk=note.id %}" class="text-danger">Delete</a>
         </div>
     </div>
     {% endfor %}
