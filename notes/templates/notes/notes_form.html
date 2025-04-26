@@ -2,10 +2,28 @@
 {% block title %} Create Notes {% endblock %}
 
 {% block content %}
+
 <form action="{% url 'notes.create' %}" method="POST">
     {% csrf_token %}
-    {{ form }}
+    
+    <div class="mb-3">
+        <label for="id_title" class="form-label">Title</label>
+        <input type="text" name="title" id="id_title" class="form-control" value="{{ form.title.value|default:'' }}">
+        {% if form.title.errors %}
+            <div class="text-danger">{{ form.title.errors.0 }}</div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_text" class="form-label">Text</label>
+        <textarea name="text" id="id_text" class="form-control">{{ form.text.value|default:'' }}</textarea>
+        {% if form.text.errors %}
+            <div class="text-danger">{{ form.text.errors.0 }}</div>
+        {% endif %}
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 
 {% endblock %}
