@@ -5,12 +5,23 @@ from django.http import Http404
 # ListView already make the query
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
+from django.shortcuts import redirect
 from django.views.generic.edit import DeleteView
 from django.http import HttpResponseNotAllowed
 from django.urls import reverse_lazy
 
 
 from .forms import NotesForm
+
+def add_like_views(request, pk):
+    if request.method == 'POST':
+        note = Notes.objects.get(pk=pk)
+        note.likes += 1
+        note.save()
+        return redirect('notes.details', pk=pk)
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
 
 class NotesCreateView(CreateView):
     model = Notes

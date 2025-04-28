@@ -6,4 +6,9 @@
     <p>{{ note.text }}</p>
     <p>Likes: {{ note.likes }}</p>
     <p>{{ note.created_at }}</p>
+    <form action="{% url 'add.likes' pk=note.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Add Like</button>
+    </form>
+    <a href="{% url 'notes.list' %}" class="btn btn-secondary">Back</a>
 {% endblock %}
